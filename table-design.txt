@@ -1,0 +1,15 @@
+table: users
+
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    roles TEXT NOT NULL
+
+table: mutations
+
+    mutation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    amount INT,
+    date TEXT,
+    donor TEXT,
+    remarks TEXT

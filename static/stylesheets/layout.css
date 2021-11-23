@@ -3,8 +3,8 @@
     Use this stylesheet when you want apply to all templates that use layout.html
 */
 body {
-    background-color: #be6c00;
-    background-image: url(https://i.imgur.com/x8JbAe0.png);
+    background-color: #021f53;
+    background-image: url('../img/1688719.jpg');
     background-size: cover;
 }
 
@@ -17,4 +17,24 @@ h1, h2, h3, h4, h5, h6 {
 p, a {
     font-size: 16px;
     
+}
+
+.center{
+    text-align: center;
+}
+
+.overview_table{
+    border-radius: 20px;
+    border: 2px lightgreen solid;
+    font-size: 40px;
+    color: white;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td{
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px 30px 10px 30px;
+    text-align: center;
 }

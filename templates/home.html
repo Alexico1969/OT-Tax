@@ -1,26 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <h3>templates/home.html</h3>
+    <h3 class="center">OT Tax Overview</h3>
+    <br>
+
+    <div class="container">
+        <div class="totals">
+            <table class="overview_table">
+                <tr><th>Monthly goal</th><th>Donated</th><th>Remaining</th></tr>
+                <tr><td>100.000.000 ISK</td><td>24.000.000 ISK</td><td>76.000.000 ISK</td></tr>
+            </table>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
     <script>
-    $(document).ready(function(){
-        console.log('--- js file loaded ---');
 
-        var content =  $.ajax({
-            url: "https://api.nasa.gov/planetary/apod?api_key=VM2f40EQQ0tk58nvmPhpVa6gthc5ma6Chgll56N7",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function(result){
-                console.log(result);
-            }
-
-
-
-        })
-    })
     </script>
     <script src="{{ url_for('static', filename='javascript/home.js') }}"></script>
 {% endblock %}
