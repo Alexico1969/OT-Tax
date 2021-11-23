@@ -17,6 +17,14 @@ table: mutations
 table: monthly_data
 
     md_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    month TEXT,
     goal INTEGER,
-    final_amount INTEGER,
+    remarks TEXT
+
+table: invitation_codes
+
+    inv_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT,
+    times_used INTEGER,
+    remarks TEXT
     

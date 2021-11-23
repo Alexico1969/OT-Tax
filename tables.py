@@ -33,6 +33,16 @@ def create_tables(conn):
             remarks TEXT
             )    '''
     conn.execute(query)
-            
-            
+
+    #create table invitation_codes
+    query = '''create table if not exists invitation_codes(
+
+                inv_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                code TEXT,
+                times_used INTEGER,
+                remarks TEXT
+                )'''
+
+    conn.execute(query)
+
     print("tables created where needed")

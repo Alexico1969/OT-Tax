@@ -1,7 +1,7 @@
 
 from os import getenv, environ
 from flask import Flask, render_template, session, request, redirect, url_for, g
-from db import get_db_conn
+from db import get_db_conn, create_invitation_codes
 from helper import extract_username, extract_password
 from tables import create_tables
 
@@ -11,6 +11,7 @@ app.secret_key = 'Bruce Wayne is Spiderman'
 
 conn = get_db_conn()
 create_tables(conn)
+create_invitation_codes(conn)
 
 @app.route('/')
 def home_page():
