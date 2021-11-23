@@ -9,7 +9,14 @@ table: users
 table: mutations
 
     mutation_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    amount INT,
+    amount INTEGER,
     date TEXT,
     donor TEXT,
     remarks TEXT
+
+table: monthly_data
+
+    md_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    goal INTEGER,
+    final_amount INTEGER,
+    
