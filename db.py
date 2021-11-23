@@ -15,12 +15,8 @@ def create_invitation_codes(conn):
     cur = conn.cursor()
 
     query = '''Select * from invitation_codes'''
-
     result = cur.execute(query)
-
     data = result.fetchall()
-
-    print("data", data)
 
     if len(data) == 0:
         query = '''insert into invitation_codes (code, times_used, remarks) values 

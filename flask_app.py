@@ -2,7 +2,6 @@
 from os import getenv, environ
 from flask import Flask, render_template, session, request, redirect, url_for, g
 from db import get_db_conn, create_invitation_codes
-from helper import extract_username, extract_password
 from tables import create_tables
 
 
@@ -20,23 +19,24 @@ def home_page():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
+    message = ""
+
     if request.method == "POST":
-        data = request.get_data("username")
-        print("data:", data)
-        converted = data.decode('UTF-8')
-        print("converted:", converted)
-        username = extract_username(converted)
-        print("username:", username)
-        password = extract_password(converted)
-        print("password:", password)
+       print("todo")
         
 
 
-    return render_template('login.html')
+    return render_template('login.html', msg=message)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-   pass
+
+    message = ""
+
+    if request.method == "POST":
+       print("todo")
+
+    return render_template('signup.html', msg=message)
 
 @app.route('/logout')
 def logout():
