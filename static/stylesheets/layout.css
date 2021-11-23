@@ -34,7 +34,10 @@ p, a {
 }
 
 th, td{
-    background-color: rgba(0,0,0,0.5);
     padding: 10px 30px 10px 30px;
     text-align: center;
+}
+
+.darken{
+    background-color: rgba(0,0,0,0.5);
 }
