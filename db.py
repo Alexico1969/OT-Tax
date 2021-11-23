@@ -30,6 +30,7 @@ def create_invitation_codes(conn):
             ('I98cann1h212', 0, 'Spare_02')
               '''
         conn.execute(query)
+        conn.commit()
         print("Invitation codes created")
     else:
         print(len(data), "invitation codes found")
