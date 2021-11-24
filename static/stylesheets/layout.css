@@ -48,6 +48,10 @@ th, td{
     width: 400px;
 }
 
+.text-input[value]{
+    color: red;
+}
+
 .form-1{
     text-align: center;
     padding: 20px 10px 20px 10px;
@@ -57,4 +61,19 @@ th, td{
     font-size: 20px;
     border-radius: 5px;
     background-color: rgb(157, 243, 234);
+}
+
+.dump-table{
+    border: 1px lightgreen solid;
+}
+
+.table-1{
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    border-collapse: collapse;
+}
+
+.table-1 td{
+    border-bottom: 1px solid lightgreen;
 }

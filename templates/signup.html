@@ -11,10 +11,11 @@
     <br>
     <div class="form-1 darken">
         <form method='post'>
-            <p><input type="text" class="text-input" name="username" placeholder="username"></p>
-            <p><input type="password" class="text-input" name="pssw1" placeholder="password"></p>
-            <p><input type="password" class="text-input" name="pssw2" placeholder="password confirm"></p>
-            <p><input type="text" class="text-input" name="inv_code" placeholder="invitation code"></p>
+            <p><input type="text" class="text-input" name="name" placeholder="name" min-length="3" max-length="50" required></p>
+            <p><input type="text" class="text-input" name="username" placeholder="username" min-length="6" max-length="50" required></p>
+            <p><input type="password" class="text-input" name="pssw1" placeholder="password" min-length="8" max-length="50" required></p>
+            <p><input type="password" class="text-input" name="pssw2" placeholder="password confirm" min-length="8" max-length="50" required></p>
+            <p><input type="text" class="text-input" name="inv_code" placeholder="invitation code"  min-length="5" max-length="20" required></p>
             <br>
             <button class="submit-btn" type="submit">Register</button>
         </form>

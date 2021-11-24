@@ -10,8 +10,8 @@
     {% endif %}
     <div class="form-1 darken">
         <form method='post'>
-            <p><input type="text" class="text-input" name="username" placeholder="username"></p>
-            <p><input type="password" class="text-input" name="pssw1" placeholder="password"></p>
+            <p><input type="text" class="text-input" name="username" placeholder="username" min-length="6" max-length="50" required></p>
+            <p><input type="password" class="text-input" name="pssw1" placeholder="password" min-length="8" max-length="50" required></p>
             <br>
             <button class="submit-btn" type="submit">Log in</button>
         </form>
