@@ -5,7 +5,6 @@ from db import get_db_conn, create_invitation_codes, username_in_use, check_inv_
 from db import add_user, get_all_users
 from tables import create_tables
 
-
 app=Flask(__name__, static_url_path='/static')
 app.secret_key = 'Bruce Wayne is Spiderman'
 
