@@ -12,6 +12,7 @@ table: mutations
     amount INTEGER,
     date TEXT,
     donor TEXT,
+    logged_by TEXT,
     remarks TEXT
 
 table: monthly_data

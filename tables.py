@@ -5,6 +5,18 @@ from urllib import parse
 
 def create_tables(conn):
 
+    # In case you want to clear a table
+    # query = '''delete from table
+    #        )    '''
+    # conn.execute(query)
+    # print("table cleared")
+
+    # In case you want to drop a table
+    # query = '''drop table mutations'''
+    # conn.execute(query)
+    # print("table dropped")
+
+
     # Create table users
     query = '''create table if not exists users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,6 +33,7 @@ def create_tables(conn):
             amount INTEGER,
             date TEXT,
             donor TEXT,
+            logged_by TEXT,
             remarks TEXT
             )    '''
     conn.execute(query)

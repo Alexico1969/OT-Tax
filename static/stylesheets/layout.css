@@ -41,3 +41,20 @@ th, td{
 .darken{
     background-color: rgba(0,0,0,0.5);
 }
+
+.text-input{
+    border-radius: 5px;
+    font-size: 20px;
+    width: 400px;
+}
+
+.form-1{
+    text-align: center;
+    padding: 20px 10px 20px 10px;
+}
+
+.submit-btn{
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: rgb(157, 243, 234);
+}
