@@ -17,19 +17,30 @@
             </li>
             {% if user %}
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  {{user[1]}}
+                <a class="nav-link pull-right" href="#">
+                  {{user}}
                 </a>
               </li>
               <li>
-                <a class="nav-link" href="{{url_for('logout')}}">
+                <a class="nav-link pull-right" href="{{url_for('dump')}}">
+                  Data-dump
+                </a>
+              </li>
+              <li>
+                <a class="nav-link pull-right" href="{{url_for('logout')}}">
                   Logout
+                </a>
+              </li>
+            {% else %}
+              <li>
+                <a class="nav-link pull-right" href="{{url_for('login')}}">
+                  Login
                 </a>
               </li>
             {% endif %}
           </ul>
           <span class="navbar-text">
-            Navbar
+            
           </span>
         </div>
       </nav>

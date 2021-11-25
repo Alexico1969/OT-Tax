@@ -13,7 +13,11 @@ create_invitation_codes(conn)
 
 @app.route('/')
 def home_page():
-    return render_template('home.html')
+    name=""
+    if 'username' in session:
+      username = session['username']
+      name = get_name(conn, username)
+    return render_template('home.html', user=name)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,7 +37,11 @@ def login():
             message="username or password unknown"
         else:
             name = get_name(conn, username)
-            message="Welcome, name"
+            message="Welcome, " + name
+            session['username'] = username
+            message = "Welcome, "
+            desto = "/"
+            return render_template('message.html', msg=message, name=name, desto=desto)
 
         
     return render_template('login.html', msg=message)
@@ -67,15 +75,20 @@ def signup():
 
 @app.route('/logout')
 def logout():
-    session.pop('userid', None)
+    session.pop('username', None)
     return redirect(url_for('home_page'))
 
 
 @app.route('/dump')
 def dump():
-    user_list = get_all_users(conn)
-    print("user_list", user_list)
-    return render_template('dump.html', users=user_list)
+    if 'username' in session:
+        username = session['username']
+        user_list = get_all_users(conn)
+        return render_template('dump.html', users=user_list, user=username)
+    else:
+        message = "403 - Admins only !"
+        desto = "/"
+        return render_template('message.html', msg=message, desto=desto)
 
 
 # Do not alter this if statement below

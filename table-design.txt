@@ -15,9 +15,9 @@ table: mutations
     logged_by TEXT,
     remarks TEXT
 
-table: monthly_data
+table: monthly_goals
 
-    md_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mg_id INTEGER PRIMARY KEY AUTOINCREMENT,
     month TEXT,
     goal INTEGER,
     remarks TEXT

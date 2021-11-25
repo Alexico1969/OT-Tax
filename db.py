@@ -86,7 +86,6 @@ def get_all_users(conn):
 
 def password_checks_out(conn, username, password):
     cur = conn.cursor()
-    print("in password_checks_out, username=", username)
     query = '''Select password from users where username=?'''
     result = cur.execute(query,(username,))
     data = result.fetchone()
@@ -94,10 +93,16 @@ def password_checks_out(conn, username, password):
         stored_password = data[0]
         if check_password(password,stored_password):
             return True
-    else:
-        return False
-    print("stored_password", stored_password)
     return False
 
 def get_name(conn, username):
-    return("Harry")
+    print("*7", username)
+    cur = conn.cursor()
+    query = '''Select name from users where username=?'''
+    result = cur.execute(query,(username,))
+    data = result.fetchone()
+    if data:
+        name = data[0]
+    else:
+        name = "Hacker"
+    return name

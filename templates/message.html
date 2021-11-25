@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h3 class="center">OT Tax Overview</h3>
+    <br>
+
+    <div class="container">
+      
+        <h3>{{msg}} {{name}}</h3>
+        <br>
+        <div class="center">
+            <a href="{{desto}}"><button class="submit-btn">OK</button></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+    </script>
+    <script src="{{ url_for('static', filename='javascript/home.js') }}"></script>
+{% endblock %}
