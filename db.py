@@ -52,7 +52,6 @@ def check_inv_code(conn, input):
     query = '''Select * from invitation_codes where code=?'''
     result = cur.execute(query, (input,))
     data = result.fetchall()
-    print("data *2:", data)
     if len(data) > 0:
         return True
     else:
@@ -71,7 +70,6 @@ def add_user(conn, name, username, password, roles, inv_code):
     result = cur.execute(query, (inv_code,))
     data = result.fetchone()
     counter = data[0]
-    print("counter: ",counter)
     counter += 1
     query = '''update invitation_codes set times_used=? where code=?'''
     cur.execute(query, (counter, inv_code))
@@ -93,7 +91,6 @@ def password_checks_out(conn, username, password):
     return False
 
 def get_name(conn, username):
-    print("*7", username)
     cur = conn.cursor()
     query = '''Select name from users where username=?'''
     result = cur.execute(query,(username,))
@@ -113,7 +110,7 @@ def get_all_users(conn):
 
 def get_all_mutations(conn):
     cur = conn.cursor()
-    query = '''Select * from mutations'''
+    query = '''Select * from mutations ORDER BY mutation_id DESC'''
     result = cur.execute(query)
     data = result.fetchall()
     return data
@@ -141,20 +138,35 @@ def add_goal_data(conn, month, amount, remarks):
     print("entry added")
     return
 
-def this_months_total(con):
+def this_months_total(conn):
 
+    todays_month = todays_date.month
 
+    cur = conn.cursor()
+    query = '''Select * from mutations'''
+    result = cur.execute(query)
+    data = result.fetchall()
+    
+    total = 0
 
-    return 100000
+    if data:
+        for row in data:
+            temp = row[2].split("-")
+            m = temp[1]
+            if int(m) == int(todays_month):
+                total += row[1]
+
+    return total
+
 
 def this_months_goal(conn):
 
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     todays_month = months[todays_date.month-1]
-    
     todays_year = str(todays_date.year)
+
     search_str = todays_year + "/" + todays_month
-    print("*11 - search_str", search_str)
+
     cur = conn.cursor()
     query = '''Select goal from monthly_goals where month=?'''
     result = cur.execute(query, (search_str,))
@@ -163,7 +175,6 @@ def this_months_goal(conn):
         output = data[0][0]
     else:
         output = 0
-    print("*12", data[0][0])
     return output
 
 
