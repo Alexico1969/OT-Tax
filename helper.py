@@ -7,4 +7,5 @@ def get_hashed_password(plain_text_password):
 
 def check_password(input_password, hashed_password):
     check = sha256_crypt.verify(input_password, hashed_password)
+    print("In check_password, input_password = ", input_password)
     return check

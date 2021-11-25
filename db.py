@@ -36,7 +36,7 @@ def create_invitation_codes(conn):
 
 def username_in_use(conn, usr):
     cur = conn.cursor()
-    query = '''Select * from users where name=?'''
+    query = '''Select * from users where username=?'''
     result = cur.execute(query,(usr,))
     data = result.fetchall()
     if len(data) > 0:
@@ -82,7 +82,22 @@ def get_all_users(conn):
     query = '''Select * from users'''
     result = cur.execute(query)
     data = result.fetchall()
-    print("data *3:", data)
     return data
 
+def password_checks_out(conn, username, password):
+    cur = conn.cursor()
+    print("in password_checks_out, username=", username)
+    query = '''Select password from users where username=?'''
+    result = cur.execute(query,(username,))
+    data = result.fetchone()
+    if data:
+        stored_password = data[0]
+        if check_password(password,stored_password):
+            return True
+    else:
+        return False
+    print("stored_password", stored_password)
+    return False
 
+def get_name(conn, username):
+    return("Harry")

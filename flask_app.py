@@ -1,8 +1,7 @@
-
 from os import getenv, environ
 from flask import Flask, render_template, session, request, redirect, url_for, g
 from db import get_db_conn, create_invitation_codes, username_in_use, check_inv_code
-from db import add_user, get_all_users
+from db import add_user, get_all_users, password_checks_out, get_name
 from tables import create_tables
 
 app=Flask(__name__, static_url_path='/static')
@@ -22,10 +21,21 @@ def login():
     message = ""
 
     if request.method == "POST":
-       print("todo")
+        username = request.form.get("username")
+        password = request.form.get("pssw1")
+        check1 = not(username_in_use(conn, username))
+        check2 = not(password_checks_out(conn, username, password))
+        if  check1:
+            print("check1: ", check1)
+            message="username or password unknown"
+        elif check2:
+            print("check2: ", check2)
+            message="username or password unknown"
+        else:
+            name = get_name(conn, username)
+            message="Welcome, name"
+
         
-
-
     return render_template('login.html', msg=message)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -49,6 +59,8 @@ def signup():
         else:
             roles="add_entry"
             add_user(conn, name, username, password, roles, inv_code)
+            message="Registration complete, you can now log in."
+            return redirect(url_for('login'))
 
 
     return render_template('signup.html', msg=message)
