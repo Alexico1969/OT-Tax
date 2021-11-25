@@ -12,9 +12,9 @@ def create_tables(conn):
     #print("table cleared")
 
     # In case you want to drop a table
-    query = '''drop table users'''
-    conn.execute(query)
-    print("table dropped")
+    #query = '''drop table users'''
+    #conn.execute(query)
+    #print("table dropped")
 
 
     # Create table users
