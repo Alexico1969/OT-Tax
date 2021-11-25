@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class='container'>
+    <br>
+    <h1 class='text-center'>Add Entry</h1>
+    {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{msg}}
+        </div>
+    {% endif %}
+    <br>
+    <div class="form-1 darken">
+        <form method='post'>
+            <input type="text" class="text-input-short" name="year" value="2022" id="year" required>
+
+            <label for="month">Choose month</label>
+            <select name="month" id="month" class="text-input-short">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+
+            <p><input type="number" class="text-input" name="amount" placeholder="amount" required></p>
+            <p><input type="text" class="text-input" name="remarks" placeholder="remarks"  min-length="5" max-length="256"></p>
+            <br>
+            <button class="submit-btn" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentDate = new Date();
+    let cDay = currentDate.getDate();
+    let cMonth = currentDate.getMonth() + 1;
+    let cYear = currentDate.getFullYear();
+    let date = cDay + "/" + cMonth + "/" + cYear;
+
+    $("#year").val(cYear);
+</script>
+
+    <script src="{{ url_for('static', filename='javascript/home.js') }}"></script>
+{% endblock %}

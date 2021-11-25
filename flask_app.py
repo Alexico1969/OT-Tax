@@ -1,7 +1,8 @@
 from os import getenv, environ
 from flask import Flask, render_template, session, request, redirect, url_for, g
 from db import get_db_conn, create_invitation_codes, username_in_use, check_inv_code
-from db import add_user, get_all_users, password_checks_out, get_name
+from db import add_user, get_all_users, password_checks_out, get_name, get_all_mutations, get_all_goals
+from db import add_entry_data, add_goal_data, this_months_total, this_months_goal
 from tables import create_tables
 
 app=Flask(__name__, static_url_path='/static')
@@ -15,9 +16,22 @@ create_invitation_codes(conn)
 def home_page():
     name=""
     if 'username' in session:
-      username = session['username']
-      name = get_name(conn, username)
-    return render_template('home.html', user=name)
+        username = session['username']
+        name = get_name(conn, username)
+    else:
+        name = ""
+    mutations = get_all_mutations(conn)
+    
+    donated = this_months_total(conn)
+    monthly_goal = this_months_goal(conn)
+    remainder = monthly_goal - donated
+    if remainder < 0:
+        remainder = 0
+    monthly_goal = "{:,}".format(monthly_goal)
+    remainder = "{:,}".format(remainder)
+    donated = "{:,}".format(donated)
+    
+    return render_template('home.html', user=name, mutations=mutations, monthly_goal=monthly_goal, donated=donated, remainder=remainder)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -84,11 +98,76 @@ def dump():
     if 'username' in session:
         username = session['username']
         user_list = get_all_users(conn)
-        return render_template('dump.html', users=user_list, user=username)
+        mutations = get_all_mutations(conn)
+        goals = get_all_goals(conn)
+        return render_template('dump.html', users=user_list, user=username, mutations=mutations, goals=goals)
     else:
         message = "403 - Admins only !"
         desto = "/"
         return render_template('message.html', msg=message, desto=desto)
+
+@app.route('/add_entry', methods=['GET', 'POST'])
+def add_entry():
+    if 'username' in session:
+        username = session['username']
+
+        if request.method == "POST":
+            amount = request.form.get("amount")
+            date = request.form.get("date")
+            donor = request.form.get("donor")
+            logged_by = request.form.get("logged_by")
+            remarks = request.form.get("remarks")
+
+            add_entry_data(conn, amount, date, donor, logged_by, remarks)
+
+            name = ""
+            message = "Entry added"
+            session['username'] = username
+            desto = "/add_entry"
+
+            return render_template('message.html', msg=message, name=name, desto=desto)
+
+
+
+        return render_template('add_entry.html', user=username)
+
+    else:
+        message = "403 - Admins only !"
+        desto = "/"
+        return render_template('message.html', msg=message, desto=desto)
+
+@app.route('/add_goal', methods=['GET', 'POST'])
+def add_goal():
+    if 'username' in session:
+        username = session['username']
+
+        if request.method == "POST":
+            year = request.form.get("year")
+            month_temp = request.form.get("month")
+            month = year + "/" + month_temp
+            amount = request.form.get("amount")
+            remarks = request.form.get("remarks")
+
+            add_goal_data(conn, month, amount, remarks)
+
+            name = ""
+            message="Entry added" + name
+            session['username'] = username
+            desto = "/add_goal"
+
+            return render_template('message.html', msg=message, name=name, desto=desto)
+
+
+
+        return render_template('add_goal.html', user=username)
+
+    else:
+        message = "403 - Admins only !"
+        desto = "/"
+        return render_template('message.html', msg=message, desto=desto)
+
+
+
 
 
 # Do not alter this if statement below

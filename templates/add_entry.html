@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class='container'>
+    <br>
+    <h1 class='text-center'>Add Entry</h1>
+    {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{msg}}
+        </div>
+    {% endif %}
+    <br>
+    <div class="form-1 darken">
+        <form method='post'>
+            <p><input type="number" class="text-input" name="amount" placeholder="amount/value donated" min-length="3" max-length="50" required></p>
+            <p><input type="date" class="text-input" name="date" value="date" id="date" min-length="6" max-length="50" required></p>
+            <p><input type="text" class="text-input" name="donor" placeholder="donor" min-length="8" max-length="50" required></p>
+            <p><input type="text" class="text-input" name="logged_by" value="{{user}}" min-length="8" max-length="50" required></p>
+            <p><input type="text" class="text-input" name="remarks" placeholder="remarks"  min-length="5" max-length="256"></p>
+            <br>
+            <button class="submit-btn" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentDate = new Date();
+    let cDay = currentDate.getDate();
+    let cMonth = currentDate.getMonth() + 1;
+    let cYear = currentDate.getFullYear();
+    let date = cDay + "/" + cMonth + "/" + cYear;
+
+    $("#date").val(date);
+</script>
+
+    <script src="{{ url_for('static', filename='javascript/home.js') }}"></script>
+{% endblock %}

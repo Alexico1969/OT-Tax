@@ -58,4 +58,15 @@ def create_tables(conn):
 
     conn.execute(query)
 
+    #create table monthly_goals
+    query = '''create table if not exists monthly_goals(
+
+                mg_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                month TEXT,
+                goal INTEGER,
+                remarks TEXT
+                )'''
+
+    conn.execute(query)
+
     print("tables created where needed")

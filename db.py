@@ -3,6 +3,9 @@ from flask import g
 import psycopg2
 from urllib import parse
 from helper import get_hashed_password, check_password
+from datetime import date
+
+todays_date = date.today()
 
 def get_db_conn():
 
@@ -77,12 +80,6 @@ def add_user(conn, name, username, password, roles, inv_code):
     print("user added")
     return
 
-def get_all_users(conn):
-    cur = conn.cursor()
-    query = '''Select * from users'''
-    result = cur.execute(query)
-    data = result.fetchall()
-    return data
 
 def password_checks_out(conn, username, password):
     cur = conn.cursor()
@@ -106,3 +103,70 @@ def get_name(conn, username):
     else:
         name = "Hacker"
     return name
+
+def get_all_users(conn):
+    cur = conn.cursor()
+    query = '''Select * from users'''
+    result = cur.execute(query)
+    data = result.fetchall()
+    return data
+
+def get_all_mutations(conn):
+    cur = conn.cursor()
+    query = '''Select * from mutations'''
+    result = cur.execute(query)
+    data = result.fetchall()
+    return data
+
+def get_all_goals(conn):
+    cur = conn.cursor()
+    query = '''Select * from monthly_goals'''
+    result = cur.execute(query)
+    data = result.fetchall()
+    return data
+
+def add_entry_data(conn, amount, date, donor, logged_by, remarks):
+    cur = conn.cursor()
+    query = '''insert into mutations(amount, date, donor, logged_by, remarks) values (?,?,?,?,?)'''
+    cur.execute(query, ( amount, date, donor, logged_by, remarks))
+    conn.commit()
+    print("entry added")
+    return
+
+def add_goal_data(conn, month, amount, remarks):
+    cur = conn.cursor()
+    query = '''insert into monthly_goals(month, goal, remarks) values (?,?,?)'''
+    cur.execute(query, ( month, amount, remarks))
+    conn.commit()
+    print("entry added")
+    return
+
+def this_months_total(con):
+
+
+
+    return 100000
+
+def this_months_goal(conn):
+
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    todays_month = months[todays_date.month-1]
+    
+    todays_year = str(todays_date.year)
+    search_str = todays_year + "/" + todays_month
+    print("*11 - search_str", search_str)
+    cur = conn.cursor()
+    query = '''Select goal from monthly_goals where month=?'''
+    result = cur.execute(query, (search_str,))
+    data = result.fetchall()
+    if data:
+        output = data[0][0]
+    else:
+        output = 0
+    print("*12", data[0][0])
+    return output
+
+
+
+
+    

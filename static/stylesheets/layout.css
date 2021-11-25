@@ -46,14 +46,28 @@ th, td{
 }
 
 .text-input{
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 20px;
     width: 400px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.text-input-short{
+    border-radius: 10px;
+    font-size: 20px;
+    width: 142px;
+    height: 40px;
+    margin-bottom: 20px;
 }
 
 .text-input[value]{
-    color: red;
+    color: rgb(31, 1, 1);
 }
+
+
+
+
 
 .form-1{
     text-align: center;

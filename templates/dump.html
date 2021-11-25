@@ -15,6 +15,31 @@
                     <tr><td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3][:20]}}</td><td>{{item[4]}}</td></tr>
                 {% endfor %}
             </table>
+            <br>
+        </div>
+        <br>
+        <h3>Table Mutations</h3>
+        <br>
+        <div class="dump-table darken">
+            <table class="table-1">
+                <tr><th>id</th><th>amount</th><th>date</th><th>donor</th><th>logged by</th><th>remarks</th></tr>
+                {% for item in mutations %}
+                    <tr><td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3][:20]}}</td><td>{{item[4]}}</td><td>{{item[5]}}</td></tr>
+                {% endfor %}
+            </table>
+            <br>
+        </div>
+        <br>
+        <h3>Table Monthly_goals</h3>
+        <br>
+        <div class="dump-table darken">
+            <table class="table-1">
+                <tr><th>id</th><th>month</th><th>amount</th><th>remarks</th></tr>
+                {% for item in goals %}
+                    <tr><td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3][:20]}}</td>></tr>
+                {% endfor %}
+            </table>
+            <br>
         </div>
     </div>
 {% endblock %}
