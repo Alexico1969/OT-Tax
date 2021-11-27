@@ -116,7 +116,7 @@ def query():
             query = request.form.get("query")
             result = execute_query(conn, query)
             data = result.fetchall()
-            message = "Result : " + str(result) + " Data = " + data
+            message = "Result : " + str(result) + " Data = " + str(data)
             desto = "/query"
             return render_template('message.html', msg=message, desto=desto)
 
