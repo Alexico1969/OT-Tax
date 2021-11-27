@@ -134,10 +134,21 @@ def add_entry_data(conn, amount, date, donor, logged_by, remarks):
 
 def add_goal_data(conn, month, amount, remarks):
     cur = conn.cursor()
-    query = '''insert into monthly_goals(month, goal, remarks) values (?,?,?)'''
-    cur.execute(query, ( month, amount, remarks))
+
+    query = '''Select * from monthly_goals where month=?'''
+    result = cur.execute(query, (month,))
+    data = result.fetchall()
+
+    if len(data) > 0:
+        query = '''update monthly_goals set goal=? where month=?'''
+        cur.execute(query, ( amount, month))
+        print("entry updated")
+    else:
+        query = '''insert into monthly_goals(month, goal, remarks) values (?,?,?) '''
+        cur.execute(query, ( month, amount, remarks))
+        print("entry added")
     conn.commit()
-    print("entry added")
+
     return
 
 def this_months_total(conn):
