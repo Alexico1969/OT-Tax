@@ -2,7 +2,7 @@ from os import getenv, environ
 from flask import Flask, render_template, session, request, redirect, url_for, g
 from db import get_db_conn, create_invitation_codes, username_in_use, check_inv_code
 from db import add_user, get_all_users, password_checks_out, get_name, get_all_mutations, get_all_goals
-from db import add_entry_data, add_goal_data, this_months_total, this_months_goal
+from db import add_entry_data, add_goal_data, this_months_total, this_months_goal,execute_query
 from tables import create_tables
 
 app=Flask(__name__, static_url_path='/static')
@@ -101,6 +101,27 @@ def dump():
         mutations = get_all_mutations(conn)
         goals = get_all_goals(conn)
         return render_template('dump.html', users=user_list, user=username, mutations=mutations, goals=goals)
+    else:
+        message = "403 - Admins only !"
+        desto = "/"
+        return render_template('message.html', msg=message, desto=desto)
+
+@app.route('/query', methods=['GET', 'POST'])
+def query():
+    if 'username' in session:
+        username = session['username']
+
+        if request.method == "POST":
+            result = ""
+            query = request.form.get("query")
+            result = execute_query(conn, query)
+            data = result.fetchall()
+            message = "Result : " + str(result) + " Data = " + data
+            desto = "/query"
+            return render_template('message.html', msg=message, desto=desto)
+
+
+        return render_template('query.html')
     else:
         message = "403 - Admins only !"
         desto = "/"

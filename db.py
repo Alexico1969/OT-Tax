@@ -4,6 +4,7 @@ import psycopg2
 from urllib import parse
 from helper import get_hashed_password, check_password
 from datetime import date
+import sys
 
 todays_date = date.today()
 
@@ -27,7 +28,8 @@ def create_invitation_codes(conn):
             ('Jv90_o!lskKv', 0, 'For OT admins'),
             ('KjmK091!$9an', 0, 'For OT members'),
             ('8iajhnbaa231', 0, 'Spare_01'),
-            ('I98cann1h212', 0, 'Spare_02')
+            ('I98cann1h212', 0, 'Spare_02'),
+            ('a981sjlowj12', 0, 'Test-01')
               '''
         conn.execute(query)
         conn.commit()
@@ -179,5 +181,17 @@ def this_months_goal(conn):
 
 
 
+def execute_query(conn, query):
+    result = "-"
+    cur = conn.cursor()
+    query = query
 
+    try:
+        result = cur.execute(query)
+        conn.commit()
+    except:
+        result = "Error"
+
+    print("query executed: ",query)
+    return result
     
