@@ -2,7 +2,7 @@ from os import getenv, environ
 from flask import Flask, render_template, session, request, redirect, url_for, g
 from db import get_db_conn, create_invitation_codes, username_in_use, check_inv_code
 from db import add_user, get_all_users, password_checks_out, get_name, get_all_mutations, get_all_goals
-from db import add_entry_data, add_goal_data, this_months_total, this_months_goal,execute_query
+from db import add_entry_data, add_goal_data, this_months_total, this_months_goal,execute_query, get_this_month_mutations
 from tables import create_tables
 
 app=Flask(__name__, static_url_path='/static')
@@ -20,7 +20,8 @@ def home_page():
         name = get_name(conn, username)
     else:
         name = ""
-    mutations = get_all_mutations(conn)
+    #mutations = get_all_mutations(conn)
+    mutations = get_this_month_mutations(conn)
     
     donated = this_months_total(conn)
     monthly_goal = this_months_goal(conn)

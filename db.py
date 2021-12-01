@@ -117,6 +117,19 @@ def get_all_mutations(conn):
     data = result.fetchall()
     return data
 
+def get_this_month_mutations(conn):
+    cur = conn.cursor()
+
+    todays_month = todays_date.month
+    todays_year = todays_date.year
+
+    month = str(todays_year) + "/" + str(todays_month)
+
+    query = '''Select * from mutations where date LIKE ? ORDER BY mutation_id  DESC'''
+    result = cur.execute(query, (month,))
+    data = result.fetchall()
+    return data
+
 def get_all_goals(conn):
     cur = conn.cursor()
     query = '''Select * from monthly_goals'''
