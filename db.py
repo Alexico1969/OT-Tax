@@ -123,12 +123,23 @@ def get_this_month_mutations(conn):
     todays_month = todays_date.month
     todays_year = todays_date.year
 
-    month = str(todays_year) + "/" + str(todays_month)
+    month = str(todays_year) + "-" + str(todays_month)
 
-    query = '''Select * from mutations where date LIKE ? ORDER BY mutation_id  DESC'''
-    result = cur.execute(query, (month,))
+    print("**** month : ", month)
+
+    query = '''Select * from mutations ORDER BY mutation_id  DESC'''
+    result = cur.execute(query)
     data = result.fetchall()
-    return data
+
+    output = []
+
+    for row in data:
+        date = row[2]
+        print("*** date: ", date)
+        if month in date:
+            output.append(row)
+
+    return output
 
 def get_all_goals(conn):
     cur = conn.cursor()

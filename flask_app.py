@@ -20,6 +20,7 @@ def home_page():
         name = get_name(conn, username)
     else:
         name = ""
+        
     #mutations = get_all_mutations(conn)
     mutations = get_this_month_mutations(conn)
     
